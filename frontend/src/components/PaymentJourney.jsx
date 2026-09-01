@@ -15,7 +15,7 @@ export default function PaymentJourney({
       id: 1,
       title: 'YOU (App)',
       icon: Smartphone,
-      color: 'blue',
+      color: 'emerald',
       status: simulationStep >= 1 ? 'active' : 'idle',
       detail: originalPayload ? `${originalPayload.sender_name}` : 'Sender Device'
     },
@@ -23,7 +23,7 @@ export default function PaymentJourney({
       id: 2,
       title: 'PAYMENT REQUEST',
       icon: CreditCard,
-      color: 'blue',
+      color: 'cyan',
       status: simulationStep >= 1 ? 'active' : 'idle',
       detail: originalPayload ? `₹${originalPayload.amount} → ${originalPayload.receiver_name}` : 'Payload Sealed'
     },
@@ -57,44 +57,44 @@ export default function PaymentJourney({
       icon: isBlocked ? XCircle : isApproved ? CheckCircle2 : ShieldCheck,
       color: isBlocked ? 'rose' : isApproved ? 'emerald' : 'slate',
       status: simulationStep >= 6 ? 'active' : 'idle',
-      detail: isBlocked ? '🛑 Threat Prevented' : isApproved ? '🟢 Safe & Transferred' : 'Final Verdict'
+      detail: isBlocked ? '🛑 Threat Prevented' : isApproved ? '🟢 Money Transferred' : 'Final Verdict'
     }
   ];
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-7 shadow-xs space-y-6">
+    <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-800">
         <div>
-          <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-            <Lock className="w-4 h-4 text-blue-600" />
+          <h3 className="text-lg font-bold text-white flex items-center gap-2">
+            <Lock className="w-4 h-4 text-emerald-400" />
             <span>Interactive Payment Journey</span>
           </h3>
-          <p className="text-xs text-slate-500">
-            Follow the live path of your payment communication from phone to banking gateway.
+          <p className="text-xs text-slate-400">
+            Watch the live path of your payment communication from your phone to the bank.
           </p>
         </div>
 
         {originalPayload?.sha256_hash && (
           <button
             onClick={onOpenTechnicalDetails}
-            className="text-xs text-blue-700 hover:text-blue-800 font-mono bg-blue-50 border border-blue-200 px-3 py-1 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer self-start sm:self-auto"
+            className="text-xs text-cyan-400 hover:text-cyan-300 font-mono bg-cyan-950/40 border border-cyan-800/60 px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer self-start sm:self-auto"
           >
-            <span>Digest:</span>
+            <span>SHA-256 Digest:</span>
             <span className="font-bold underline">{originalPayload.sha256_hash.substring(0, 10)}...</span>
           </button>
         )}
       </div>
 
-      {/* Visual Journey Nodes */}
-      <div className="relative py-4">
-        {/* Background Connecting Line */}
-        <div className="absolute top-1/2 left-8 right-8 -translate-y-1/2 h-1 bg-slate-200 rounded-full hidden md:block z-0"></div>
+      {/* Visual Journey Architecture */}
+      <div className="relative py-6 px-2">
+        {/* Connection Background Line */}
+        <div className="absolute top-1/2 left-8 right-8 -translate-y-1/2 h-1 bg-slate-800 rounded-full hidden md:block z-0"></div>
 
         {/* Animated Progress Line */}
         <div 
           className={`absolute top-1/2 left-8 -translate-y-1/2 h-1 rounded-full hidden md:block transition-all duration-700 z-0 ${
-            isBlocked ? 'bg-rose-500' : 'bg-blue-600'
+            isBlocked ? 'bg-gradient-to-r from-emerald-500 via-amber-500 to-rose-500' : 'bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400'
           }`}
           style={{
             width: `${Math.min(100, Math.max(0, (simulationStep / 5) * 88))}%`
@@ -102,7 +102,7 @@ export default function PaymentJourney({
         ></div>
 
         {/* Nodes Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3.5 relative z-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 relative z-10">
           {nodes.map((node, index) => {
             const Icon = node.icon;
             const isCurrent = simulationStep === index + 1;
@@ -111,44 +111,44 @@ export default function PaymentJourney({
             return (
               <div
                 key={node.id}
-                className={`flex flex-col items-center text-center p-3.5 rounded-xl border transition-all duration-200 ${
+                className={`flex flex-col items-center text-center p-3.5 rounded-xl border transition-all duration-300 ${
                   isCurrent
-                    ? 'bg-blue-50/70 border-blue-600 shadow-xs ring-2 ring-blue-600/10'
+                    ? 'bg-slate-800/90 border-emerald-400/80 shadow-lg scale-105 ring-2 ring-emerald-500/20'
                     : isPassed
-                    ? 'bg-slate-50 border-slate-200 text-slate-800'
-                    : 'bg-white border-slate-200/70 text-slate-400 opacity-60'
+                    ? 'bg-slate-900/80 border-slate-700/80 text-slate-300'
+                    : 'bg-slate-950/60 border-slate-800/60 text-slate-500 opacity-60'
                 }`}
               >
                 {/* Node Icon Circle */}
-                <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-2 transition-all ${
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-2.5 transition-all ${
                   node.color === 'emerald'
-                    ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
+                    ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
                     : node.color === 'rose'
-                    ? 'bg-rose-50 text-rose-600 border border-rose-200'
+                    ? 'bg-rose-500/20 text-rose-400 border border-rose-500/40 animate-pulse'
                     : node.color === 'amber'
-                    ? 'bg-amber-50 text-amber-600 border border-amber-200'
-                    : node.color === 'blue'
-                    ? 'bg-blue-50 text-blue-600 border border-blue-200'
+                    ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
+                    : node.color === 'cyan'
+                    ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40'
                     : node.color === 'indigo'
-                    ? 'bg-indigo-50 text-indigo-600 border border-indigo-200'
-                    : 'bg-slate-100 text-slate-500 border border-slate-200'
+                    ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/40'
+                    : 'bg-slate-800 text-slate-400 border border-slate-700'
                 }`}>
-                  <Icon className="w-5 h-5" />
+                  <Icon className={`w-6 h-6 ${isCurrent ? 'animate-bounce' : ''}`} />
                 </div>
 
                 {/* Node Title */}
-                <div className="font-bold text-xs text-slate-900 tracking-tight uppercase">
+                <div className="font-bold text-xs text-white tracking-tight uppercase">
                   {node.title}
                 </div>
 
-                {/* Node Detail */}
-                <div className="text-[11px] text-slate-500 mt-0.5 line-clamp-1">
+                {/* Node Detail subtitle */}
+                <div className="text-[11px] text-slate-400 mt-1 line-clamp-1">
                   {node.detail}
                 </div>
 
-                {/* Active Pill */}
+                {/* Status Indicator */}
                 {isCurrent && (
-                  <div className="mt-2 text-[10px] font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full border border-blue-200">
+                  <div className="mt-2 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full animate-pulse border border-emerald-500/20">
                     Processing...
                   </div>
                 )}
@@ -157,37 +157,37 @@ export default function PaymentJourney({
           })}
         </div>
 
-        {/* MITM Intermediary Callout (When MITM active and reached step 3) */}
+        {/* MITM Intermediary Visual Dropdown Node (When MITM active and reached step 3) */}
         {isMitmActive && simulationStep >= 2 && (
-          <div className="mt-6 bg-rose-50 border border-rose-200 rounded-xl p-4 shadow-xs">
+          <div className="mt-6 bg-gradient-to-r from-rose-950/60 via-slate-900 to-rose-950/60 border border-rose-500/50 rounded-xl p-4 shadow-lg animate-in fade-in slide-in-from-top duration-300">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-rose-100 border border-rose-300 flex items-center justify-center text-rose-700 shrink-0">
-                  <Radio className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400 shrink-0">
+                  <Radio className="w-5 h-5 animate-pulse" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-rose-900 uppercase tracking-wide">
-                      Simulated Intermediary (Attacker Node)
+                    <span className="text-xs font-bold text-rose-300 uppercase tracking-wide">
+                      Simulated Intermediary (Attacker / Rogue Proxy)
                     </span>
-                    <span className="text-[10px] bg-rose-100 text-rose-800 px-2 py-0.5 rounded-full border border-rose-200 font-semibold">
-                      Interception In Progress
+                    <span className="text-[10px] bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded-full border border-rose-500/30">
+                      Tampering Active
                     </span>
                   </div>
-                  <p className="text-xs text-rose-700 mt-0.5">
-                    The payment packet was intercepted in the middle of network transit.
+                  <p className="text-xs text-rose-200/80 mt-0.5">
+                    The payment packet was intercepted in the middle of transit.
                   </p>
                 </div>
               </div>
 
               {/* Intercepted comparison snippet */}
-              <div className="bg-white border border-rose-200 rounded-lg p-2.5 text-xs font-mono flex items-center gap-3">
-                <div className="text-slate-600">
+              <div className="bg-slate-950/80 border border-rose-900/60 rounded-lg p-2.5 text-xs font-mono flex items-center gap-3">
+                <div className="text-slate-400">
                   <span>Sent: </span>
-                  <span className="text-emerald-700 font-bold">₹{originalPayload?.amount} → {originalPayload?.receiver_name}</span>
+                  <span className="text-emerald-400 font-bold">₹{originalPayload?.amount} → {originalPayload?.receiver_name}</span>
                 </div>
-                <ArrowRight className="w-3.5 h-3.5 text-rose-600" />
-                <div className="text-rose-700 font-bold">
+                <ArrowRight className="w-3.5 h-3.5 text-rose-500" />
+                <div className="text-rose-400 font-bold">
                   <span>Tampered: </span>
                   <span>₹{receivedPayload?.amount || originalPayload?.amount} → {receivedPayload?.receiver_name || 'Attacker'}</span>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Pause, SkipForward, SkipBack, X, Volume2, Sparkles } from 'lucide-react';
+import { Play, Pause, SkipForward, SkipBack, X, Volume2, ShieldCheck, ShieldAlert, Sparkles, CheckCircle2 } from 'lucide-react';
 
 export default function PresentationMode({
   isOpen,
@@ -14,7 +14,7 @@ export default function PresentationMode({
     {
       step: 1,
       title: 'Introduction & Safe Environment',
-      narrator: 'Welcome to CNS Pro Payment Security Lab. Our goal is to demonstrate what happens behind the scenes of a payment communication and how cryptographic integrity defends against Man-in-the-Middle (MITM) attacks.',
+      narrator: 'Welcome to the UPI Payment Communication Visualizer. Our goal is to demonstrate what happens behind the scenes of a digital payment and how cryptographic integrity defends against Man-in-the-Middle (MITM) attacks.',
       actionType: 'RESET_CLEAN',
       status: 'info'
     },
@@ -63,7 +63,7 @@ export default function PresentationMode({
     {
       step: 8,
       title: 'Conclusion & Defense Summary',
-      narrator: 'In production payment networks, multi-layered defenses like SSL Certificate Pinning, Hardware SIM Binding, and HMAC signatures ensure that unauthorized tampering is mathematically impossible.',
+      narrator: 'In production UPI networks, multi-layered defenses like SSL Certificate Pinning, Hardware SIM Binding, and HMAC signatures ensure that unauthorized tampering is mathematically impossible.',
       actionType: 'SUMMARY',
       status: 'secure'
     }
@@ -105,16 +105,16 @@ export default function PresentationMode({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-3xl px-4 animate-in slide-in-from-bottom duration-200">
-      <div className="bg-white/95 backdrop-blur-md border border-slate-300 rounded-2xl p-5 shadow-xl space-y-3.5">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-3xl px-4 animate-in slide-in-from-bottom duration-300">
+      <div className="bg-slate-900/95 backdrop-blur-xl border border-indigo-500/50 rounded-2xl p-5 shadow-2xl shadow-indigo-950/50 space-y-4">
         {/* Top bar with Step Counter & Controls */}
-        <div className="flex items-center justify-between gap-4 pb-2 border-b border-slate-200">
+        <div className="flex items-center justify-between gap-4 pb-2 border-b border-slate-800">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-xs border border-blue-200">
+            <div className="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              <span className="text-xs font-bold text-indigo-300 uppercase tracking-wider">
                 Presentation / Demo Mode
               </span>
               <span className="text-slate-500 text-xs ml-2">
@@ -126,7 +126,7 @@ export default function PresentationMode({
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors cursor-pointer"
               title={isPlaying ? 'Pause auto-play' : 'Resume auto-play'}
             >
               {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current" />}
@@ -135,7 +135,7 @@ export default function PresentationMode({
             <button
               onClick={handlePrev}
               disabled={currentStepIndex === 0}
-              className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 disabled:opacity-40 text-slate-700 transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-slate-200 transition-colors cursor-pointer"
             >
               <SkipBack className="w-4 h-4" />
             </button>
@@ -143,14 +143,14 @@ export default function PresentationMode({
             <button
               onClick={handleNext}
               disabled={currentStepIndex === presentationSteps.length - 1}
-              className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 disabled:opacity-40 text-slate-700 transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-slate-200 transition-colors cursor-pointer"
             >
               <SkipForward className="w-4 h-4" />
             </button>
 
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg bg-slate-100 hover:bg-rose-100 hover:text-rose-700 text-slate-500 transition-colors cursor-pointer ml-2"
+              className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-900/60 text-slate-400 hover:text-white transition-colors cursor-pointer ml-2"
               title="Exit presentation mode"
             >
               <X className="w-4 h-4" />
@@ -159,24 +159,24 @@ export default function PresentationMode({
         </div>
 
         {/* Slide Title & Narrator Script */}
-        <div className="space-y-1.5">
-          <h4 className="text-sm font-bold text-slate-900">
-            {currentStep.title}
+        <div className="space-y-2">
+          <h4 className="text-sm font-bold text-white flex items-center gap-2">
+            <span>{currentStep.title}</span>
           </h4>
 
           {/* Narrator Voiceover Box */}
-          <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-start gap-2.5">
-            <Volume2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-            <p className="text-xs text-slate-700 leading-relaxed font-medium">
+          <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 flex items-start gap-3">
+            <Volume2 className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
+            <p className="text-xs text-slate-200 leading-relaxed font-medium">
               "{currentStep.narrator}"
             </p>
           </div>
         </div>
 
         {/* Progress bar */}
-        <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+        <div className="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
           <div
-            className="bg-blue-600 h-full transition-all duration-500"
+            className="bg-gradient-to-r from-indigo-500 to-purple-500 h-full transition-all duration-500"
             style={{ width: `${((currentStepIndex + 1) / presentationSteps.length) * 100}%` }}
           ></div>
         </div>

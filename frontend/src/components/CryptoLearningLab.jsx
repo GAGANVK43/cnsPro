@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cpu, RefreshCw, Lock, Key, Hash, CheckCircle2 } from 'lucide-react';
+import { Key, Lock, Hash, ShieldCheck, Cpu, RefreshCw, CheckCircle2, Play, Sparkles } from 'lucide-react';
 
 export default function CryptoLearningLab() {
   // Module 01: Diffie-Hellman State
@@ -9,6 +9,7 @@ export default function CryptoLearningLab() {
   const [dhBob, setDhBob] = useState(15);
   const [dhResult, setDhResult] = useState(null);
 
+  // Fast Modular Exponentiation: (base^exp) % mod
   const modPow = (base, exp, mod) => {
     let res = 1n;
     let b = BigInt(base) % BigInt(mod);
@@ -123,18 +124,18 @@ export default function CryptoLearningLab() {
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
+    <div className="space-y-8 max-w-7xl mx-auto">
       {/* Hero */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-            <Cpu className="w-3.5 h-3.5 text-blue-600" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <Cpu className="w-3.5 h-3.5" />
             <span>Interactive Cryptography Learning Lab</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-            Make the security protections <span className="text-blue-600">visible.</span>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Make the security protections <span className="bg-gradient-to-r from-cyan-400 to-emerald-300 bg-clip-text text-transparent">visible.</span>
           </h1>
-          <p className="text-slate-600 text-sm leading-relaxed">
+          <p className="text-slate-300 text-sm leading-relaxed">
             Hands-on interactive building blocks behind a protected payment session. Run real Diffie-Hellman key derivation, AES-GCM symmetric encryption, and SHA-256 integrity hashing right in your browser.
           </p>
         </div>
@@ -143,163 +144,163 @@ export default function CryptoLearningLab() {
       {/* 3 Cryptography Cards Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Card 1: Diffie-Hellman Key Agreement */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col justify-between space-y-4">
+        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-lg bg-blue-50 text-blue-700 font-bold text-xs flex items-center justify-center border border-blue-200">01</span>
+              <span className="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold text-xs flex items-center justify-center">01</span>
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 block">Key Agreement</span>
-                <h3 className="text-base font-bold text-slate-900">Diffie–Hellman Exchange</h3>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 block">Key Agreement</span>
+                <h3 className="text-base font-bold text-white">Diffie–Hellman Exchange</h3>
               </div>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Two endpoints calculate the exact same shared secret key across an unsecure network without ever transmitting that secret over the wire.
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Two endpoints calculate the exact same shared secret key across an unsecure network without ever sending that secret.
             </p>
 
             {/* Inputs */}
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 mb-1">Prime (p)</label>
+                <label className="block text-[10px] font-semibold text-slate-400 mb-1">Prime (p)</label>
                 <input
                   type="number"
                   value={dhPrime}
                   onChange={(e) => setDhPrime(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-slate-900 font-mono text-xs focus:border-blue-600 focus:bg-white focus:outline-none"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 mb-1">Generator (g)</label>
+                <label className="block text-[10px] font-semibold text-slate-400 mb-1">Generator (g)</label>
                 <input
                   type="number"
                   value={dhGenerator}
                   onChange={(e) => setDhGenerator(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-slate-900 font-mono text-xs focus:border-blue-600 focus:bg-white focus:outline-none"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 mb-1">Payer Private (a)</label>
+                <label className="block text-[10px] font-semibold text-slate-400 mb-1">Payer Private (a)</label>
                 <input
                   type="number"
                   value={dhAlice}
                   onChange={(e) => setDhAlice(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-slate-900 font-mono text-xs focus:border-blue-600 focus:bg-white focus:outline-none"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 mb-1">Bank Private (b)</label>
+                <label className="block text-[10px] font-semibold text-slate-400 mb-1">Bank Private (b)</label>
                 <input
                   type="number"
                   value={dhBob}
                   onChange={(e) => setDhBob(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-slate-900 font-mono text-xs focus:border-blue-600 focus:bg-white focus:outline-none"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white font-mono"
                 />
               </div>
             </div>
 
             <button
               onClick={handleRunDiffieHellman}
-              className="w-full py-2.5 rounded-xl font-bold text-xs bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition-all cursor-pointer"
+              className="w-full py-2.5 rounded-xl font-bold text-xs bg-emerald-500 hover:bg-emerald-600 text-white shadow-md shadow-emerald-500/20 transition-all cursor-pointer"
             >
               Run Key Exchange Calculation
             </button>
 
             {/* Output Box */}
-            <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-xs font-mono space-y-1.5 min-h-[90px]">
+            <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs font-mono space-y-1.5 min-h-[90px]">
               {dhResult ? (
                 <>
-                  <div className="text-slate-600">PUBLIC: <span className="text-slate-900 font-bold">p={dhResult.p}, g={dhResult.g}</span></div>
-                  <div className="text-slate-600">EXCHANGED: <span className="text-blue-700 font-bold">A={dhResult.A}, B={dhResult.B}</span></div>
-                  <div className="text-emerald-700 font-bold">
+                  <div className="text-slate-400">PUBLIC: <span className="text-white">p={dhResult.p}, g={dhResult.g}</span></div>
+                  <div className="text-slate-400">EXCHANGED: <span className="text-cyan-400">A={dhResult.A}, B={dhResult.B}</span></div>
+                  <div className="text-emerald-400 font-bold">
                     SHARED SECRET: <span className="underline">{dhResult.secretAlice}</span> ✓ MATCH!
                   </div>
                 </>
               ) : (
-                <div className="text-slate-500 text-xs pt-4 text-center">
-                  Click "Run Key Exchange" to see mathematical derivation.
+                <div className="text-slate-500 text-[11px] pt-4 text-center">
+                  Click "Run Key Exchange" to see derivation.
                 </div>
               )}
             </div>
 
             {/* Step Explanation List */}
             {dhResult && (
-              <ol className="space-y-1.5 text-xs font-mono text-slate-600 pt-1 border-t border-slate-200">
-                <li>1. Payer computes: <strong className="text-slate-900">A = {dhResult.g}^{dhResult.a} mod {dhResult.p} = {dhResult.A}</strong></li>
-                <li>2. Bank computes: <strong className="text-slate-900">B = {dhResult.g}^{dhResult.b} mod {dhResult.p} = {dhResult.B}</strong></li>
-                <li>3. Both calculate: <strong className="text-emerald-700">Secret = {dhResult.secretAlice}</strong></li>
+              <ol className="space-y-1.5 text-[11px] font-mono text-slate-400 pt-1 border-t border-slate-800">
+                <li>1. Payer computes: <strong className="text-slate-200">A = {dhResult.g}^{dhResult.a} mod {dhResult.p} = {dhResult.A}</strong></li>
+                <li>2. Bank computes: <strong className="text-slate-200">B = {dhResult.g}^{dhResult.b} mod {dhResult.p} = {dhResult.B}</strong></li>
+                <li>3. Both calculate: <strong className="text-emerald-400">Secret = {dhResult.secretAlice}</strong></li>
               </ol>
             )}
           </div>
         </div>
 
         {/* Card 2: AES-GCM Confidentiality */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col justify-between space-y-4">
+        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-lg bg-blue-50 text-blue-700 font-bold text-xs flex items-center justify-center border border-blue-200">02</span>
+              <span className="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 font-bold text-xs flex items-center justify-center">02</span>
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 block">Confidentiality</span>
-                <h3 className="text-base font-bold text-slate-900">AES-256 GCM Encryption</h3>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-400 block">Confidentiality</span>
+                <h3 className="text-base font-bold text-white">AES-256 GCM Encryption</h3>
               </div>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-xs text-slate-400 leading-relaxed">
               Encrypts payment payload with an authenticated session key. Intermediaries only see unreadable ciphertext.
             </p>
 
             {/* Input */}
             <div>
-              <label className="block text-[11px] font-semibold text-slate-700 mb-1">Payment Payload to Encrypt</label>
+              <label className="block text-[10px] font-semibold text-slate-400 mb-1">Payment Payload to Encrypt</label>
               <textarea
                 rows="3"
                 value={aesMessage}
                 onChange={(e) => setAesMessage(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:border-blue-600 focus:bg-white focus:outline-none font-mono"
+                className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:border-cyan-500 focus:outline-none font-mono"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={handleAesEncrypt}
-                className="py-2.5 px-3 rounded-xl font-bold text-xs bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition-all cursor-pointer"
+                className="py-2.5 px-3 rounded-xl font-bold text-xs bg-cyan-500 hover:bg-cyan-600 text-white shadow-md shadow-cyan-500/20 transition-all cursor-pointer"
               >
                 Generate Key & Encrypt
               </button>
 
               <button
                 onClick={handleAesDecrypt}
-                className="py-2.5 px-3 rounded-xl font-bold text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 transition-all cursor-pointer"
+                className="py-2.5 px-3 rounded-xl font-bold text-xs bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 transition-all cursor-pointer"
               >
                 Decrypt Ciphertext
               </button>
             </div>
 
             {/* Output */}
-            <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-xs font-mono space-y-2 min-h-[90px]">
+            <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs font-mono space-y-2 min-h-[90px]">
               {aesCiphertextHex ? (
                 <>
-                  <div className="text-slate-500 text-[10px] font-semibold">
+                  <div className="text-slate-400 text-[10px]">
                     CIPHERTEXT (HEX):
                   </div>
-                  <div className="text-blue-700 break-all text-xs select-all max-h-16 overflow-y-auto">
+                  <div className="text-cyan-400 break-all text-[11px] select-all max-h-16 overflow-y-auto">
                     {aesCiphertextHex}
                   </div>
                   {aesDecrypted && (
-                    <div className="pt-2 border-t border-slate-200 text-emerald-700 font-semibold text-xs">
+                    <div className="pt-2 border-t border-slate-800 text-emerald-400 font-semibold text-[11px]">
                       DECRYPTED: "{aesDecrypted}"
                     </div>
                   )}
                 </>
               ) : (
-                <div className="text-slate-500 text-xs pt-4 text-center">
+                <div className="text-slate-500 text-[11px] pt-4 text-center">
                   No ciphertext generated yet.
                 </div>
               )}
             </div>
 
             {aesStatus && (
-              <p className="text-xs font-mono text-slate-500">
+              <p className="text-[10px] font-mono text-slate-400">
                 💡 {aesStatus}
               </p>
             )}
@@ -307,22 +308,22 @@ export default function CryptoLearningLab() {
         </div>
 
         {/* Card 3: SHA-256 Message Integrity */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col justify-between space-y-4">
+        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-lg bg-blue-50 text-blue-700 font-bold text-xs flex items-center justify-center border border-blue-200">03</span>
+              <span className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 font-bold text-xs flex items-center justify-center">03</span>
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 block">Message Integrity</span>
-                <h3 className="text-base font-bold text-slate-900">SHA-256 Cryptographic Hash</h3>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block">Message Integrity</span>
+                <h3 className="text-base font-bold text-white">SHA-256 Cryptographic Hash</h3>
               </div>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-xs text-slate-400 leading-relaxed">
               Computes a 256-bit mathematical fingerprint. Any single letter or number alteration completely scrambles the output.
             </p>
 
             {/* Input */}
             <div>
-              <label className="block text-[11px] font-semibold text-slate-700 mb-1">Message to Fingerprint</label>
+              <label className="block text-[10px] font-semibold text-slate-400 mb-1">Message to Fingerprint</label>
               <textarea
                 rows="3"
                 value={hashInput}
@@ -331,36 +332,36 @@ export default function CryptoLearningLab() {
                   const h = await calculateSha256(e.target.value);
                   setHashOutput(h);
                 }}
-                className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:border-blue-600 focus:bg-white focus:outline-none font-mono"
+                className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:border-amber-500 focus:outline-none font-mono"
               />
             </div>
 
             <button
               onClick={handleHashRun}
-              className="w-full py-2.5 rounded-xl font-bold text-xs bg-slate-900 hover:bg-slate-800 text-white shadow-xs transition-all cursor-pointer"
+              className="w-full py-2.5 rounded-xl font-bold text-xs bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-md shadow-amber-500/20 transition-all cursor-pointer"
             >
               Calculate SHA-256 Digest
             </button>
 
             {/* Output */}
-            <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-xs font-mono space-y-2 min-h-[90px]">
+            <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs font-mono space-y-2 min-h-[90px]">
               {hashOutput ? (
                 <>
-                  <div className="text-slate-500 text-[10px] font-semibold">
+                  <div className="text-slate-400 text-[10px]">
                     256-BIT DIGEST (64 HEX CHARACTERS):
                   </div>
-                  <div className="text-slate-900 break-all text-xs font-bold select-all">
+                  <div className="text-amber-400 break-all text-[11px] font-bold select-all">
                     {hashOutput}
                   </div>
                 </>
               ) : (
-                <div className="text-slate-500 text-xs pt-4 text-center">
+                <div className="text-slate-500 text-[11px] pt-4 text-center">
                   Type text above to observe instant hashing.
                 </div>
               )}
             </div>
 
-            <p className="text-xs font-mono text-slate-500">
+            <p className="text-[10px] font-mono text-slate-400">
               📊 Input: {hashByteCount} bytes • Output: 32 bytes (256 bits). One-way mathematical hash.
             </p>
           </div>

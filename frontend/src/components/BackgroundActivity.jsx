@@ -42,7 +42,7 @@ export default function BackgroundActivity({ events, onOpenTechnicalDetails }) {
   };
 
   return (
-    <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+    <div className="cyber-panel rounded-2xl p-6 shadow-2xl space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-slate-800">
         <div className="flex items-center gap-2.5">

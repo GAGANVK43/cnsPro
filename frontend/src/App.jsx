@@ -11,6 +11,8 @@ import TechnicalDetailsModal from './components/TechnicalDetailsModal';
 import LearnMitm from './components/LearnMitm';
 import PresentationMode from './components/PresentationMode';
 import SimulationHistory from './components/SimulationHistory';
+import RiskEngineLab from './components/RiskEngineLab';
+import CryptoLearningLab from './components/CryptoLearningLab';
 
 import {
   submitPayment,
@@ -21,8 +23,8 @@ import {
 } from './services/api';
 
 export default function App() {
-  // Navigation & Tabs
-  const [activeTab, setActiveTab] = useState('simulator'); // 'simulator' | 'learn' | 'history' | 'forensics'
+  // Navigation & Tabs: 'simulator' | 'risk-lab' | 'crypto-lab' | 'learn' | 'history' | 'forensics'
+  const [activeTab, setActiveTab] = useState('simulator');
   const [isGuidedMode, setIsGuidedMode] = useState(true);
   const [isPresentationOpen, setIsPresentationOpen] = useState(false);
   const [isTechDetailsOpen, setIsTechDetailsOpen] = useState(false);
@@ -130,7 +132,6 @@ export default function App() {
             if (verifyRes.events) {
               setEvents(verifyRes.events);
             } else {
-              // Generate client-side events
               generateClientEvents(result.original_payload, result.received_payload, vResult, isMitmEnabled, status);
             }
 
@@ -336,7 +337,7 @@ export default function App() {
             </div>
             <button
               onClick={() => setIsGuidedMode(false)}
-              className="text-slate-400 hover:text-white shrink-0 text-[11px] underline"
+              className="text-slate-400 hover:text-white shrink-0 text-[11px] underline cursor-pointer"
             >
               Hide Guide
             </button>
@@ -390,7 +391,17 @@ export default function App() {
           </div>
         )}
 
-        {/* Tab 2: Forensic Timeline ("See What Happened") */}
+        {/* Tab 2: Interactive Risk Engine Lab (0-100 Meter & Scenario Configurator) */}
+        {activeTab === 'risk-lab' && (
+          <RiskEngineLab />
+        )}
+
+        {/* Tab 3: Interactive Cryptography Learning Lab (Diffie-Hellman, AES-GCM, SHA-256) */}
+        {activeTab === 'crypto-lab' && (
+          <CryptoLearningLab />
+        )}
+
+        {/* Tab 4: Forensic Timeline ("See What Happened") */}
         {activeTab === 'forensics' && (
           <ForensicTimeline
             originalPayload={originalPayload || history[0]?.original_payload}
@@ -401,10 +412,10 @@ export default function App() {
           />
         )}
 
-        {/* Tab 3: Learn MITM Interactive Center */}
+        {/* Tab 5: Learn MITM Interactive Center */}
         {activeTab === 'learn' && <LearnMitm />}
 
-        {/* Tab 4: Simulation Session History */}
+        {/* Tab 6: Simulation Session History */}
         {activeTab === 'history' && (
           <SimulationHistory
             history={history}
@@ -466,13 +477,13 @@ export default function App() {
             UPI Payment Communication Visualizer • Educational Cybersecurity Simulation Platform
           </p>
           <div className="flex items-center gap-4 text-slate-400">
-            <span>TLS 1.3 + SHA-256 Digest Simulation</span>
+            <span>TLS 1.3 + Diffie-Hellman + AES-GCM + SHA-256</span>
             <span>•</span>
             <button
               onClick={() => setActiveTab('learn')}
               className="hover:text-emerald-400 underline cursor-pointer"
             >
-              Educational Documentation
+              Security Documentation & Quiz
             </button>
           </div>
         </div>

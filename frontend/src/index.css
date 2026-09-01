@@ -2,47 +2,36 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-100 antialiased selection:bg-emerald-500 selection:text-white font-sans;
+    @apply bg-slate-50 text-slate-900 antialiased selection:bg-blue-600 selection:text-white font-sans;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-/* Custom scrollbars */
+/* Modern clean scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
+  background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(71, 85, 105, 0.5);
+  background: #cbd5e1;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 116, 139, 0.8);
+  background: #94a3b8;
 }
 
-/* Glowing utilities */
-.glow-emerald {
-  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
-}
-.glow-rose {
-  box-shadow: 0 0 25px -5px rgba(244, 63, 94, 0.3);
-}
-.glow-amber {
-  box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.25);
-}
-.glow-blue {
-  box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.25);
+/* Subtle clean card & utility classes */
+.card-clean {
+  @apply bg-white border border-slate-200/90 rounded-2xl shadow-xs;
 }
 
-/* Animation utilities */
-@keyframes pulse-subtle {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.85; transform: scale(0.98); }
+.input-clean {
+  @apply bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/15 transition-all;
 }
 
-.animate-subtle-pulse {
-  animation: pulse-subtle 3s infinite ease-in-out;
+.select-clean {
+  @apply bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/15 transition-all;
 }

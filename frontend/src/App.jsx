@@ -109,7 +109,6 @@ export default function App() {
             if (histData?.history?.length > 0) {
               setHistory(histData.history);
             } else if (result) {
-              // Standalone fallback history append
               const newHistItem = {
                 transaction_id: result.txn_id,
                 timestamp: Date.now() / 1000,
@@ -144,7 +143,7 @@ export default function App() {
               });
             }
             
-            // Pop alert dialog after short moment
+            // Pop alert dialog
             setTimeout(() => {
               setIsAlertOpen(true);
             }, 600);
@@ -304,7 +303,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
       {/* Top Navbar */}
       <Navbar
         activeTab={activeTab}
@@ -317,18 +316,18 @@ export default function App() {
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         {/* Guided Mode Callout Banner */}
         {isGuidedMode && activeTab === 'simulator' && (
-          <div className="bg-cyan-950/40 border border-cyan-500/30 rounded-2xl p-4 flex items-center justify-between gap-4 text-xs">
+          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex items-center justify-between gap-4 text-xs">
             <div className="flex items-center gap-3">
-              <span className="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold shrink-0">
+              <span className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shrink-0">
                 💡
               </span>
               <div>
-                <span className="font-bold text-cyan-300">Guided Step {simulationStep === 0 ? '1 of 3' : simulationStep < 5 ? '2 of 3' : '3 of 3'}: </span>
-                <span className="text-cyan-100/90">
-                  {simulationStep === 0 && 'Select a contact or enter a simulated payment below. Toggle "MITM Simulation" to test attack detection!'}
+                <span className="font-bold text-blue-900">Guided Step {simulationStep === 0 ? '1 of 3' : simulationStep < 5 ? '2 of 3' : '3 of 3'}: </span>
+                <span className="text-blue-950">
+                  {simulationStep === 0 && 'Select a contact preset or enter payment details below. Toggle "MITM Simulation" to test attack detection!'}
                   {simulationStep > 0 && simulationStep < 6 && 'Watch the payment request travel across the network. Notice the cryptographic hash calculated on your device.'}
                   {simulationStep >= 6 && finalStatus === 'APPROVED' && 'Payment verified! The bank server checked the cryptographic hash and confirmed zero tampering.'}
                   {simulationStep >= 6 && finalStatus === 'BLOCKED' && 'Payment blocked! The security engine detected that the intercepted payload did not match the original hash.'}
@@ -337,7 +336,7 @@ export default function App() {
             </div>
             <button
               onClick={() => setIsGuidedMode(false)}
-              className="text-slate-400 hover:text-white shrink-0 text-[11px] underline cursor-pointer"
+              className="text-blue-700 hover:text-blue-900 font-medium shrink-0 text-xs underline cursor-pointer"
             >
               Hide Guide
             </button>
@@ -346,7 +345,7 @@ export default function App() {
 
         {/* Tab 1: Primary Payment Simulator View */}
         {activeTab === 'simulator' && (
-          <div className="space-y-8">
+          <div className="space-y-6">
             <Dashboard
               isMitmActive={isMitmEnabled}
               onStartSimulation={(mitm) => {
@@ -383,7 +382,7 @@ export default function App() {
               onOpenTechnicalDetails={() => setIsTechDetailsOpen(true)}
             />
 
-            {/* Real-Time "What's happening in the background?" Feed */}
+            {/* Real-Time Background Activity Feed */}
             <BackgroundActivity
               events={events}
               onOpenTechnicalDetails={() => setIsTechDetailsOpen(true)}
@@ -471,17 +470,17 @@ export default function App() {
       />
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 bg-slate-950/80 py-6 mt-12 text-center text-xs text-slate-500">
+      <footer className="border-t border-slate-200 bg-white py-6 mt-12 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>
-            UPI Payment Communication Visualizer • Educational Cybersecurity Simulation Platform
+          <p className="font-medium text-slate-600">
+            CNS Pro • Payment Security Communication Visualizer & Risk Lab
           </p>
-          <div className="flex items-center gap-4 text-slate-400">
-            <span>TLS 1.3 + Diffie-Hellman + AES-GCM + SHA-256</span>
+          <div className="flex items-center gap-4 text-slate-500">
+            <span>TLS 1.3 • Diffie-Hellman • AES-GCM • SHA-256</span>
             <span>•</span>
             <button
               onClick={() => setActiveTab('learn')}
-              className="hover:text-emerald-400 underline cursor-pointer"
+              className="text-blue-600 hover:underline cursor-pointer font-medium"
             >
               Security Documentation & Quiz
             </button>

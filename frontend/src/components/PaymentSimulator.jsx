@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Shield, Radio, AlertTriangle, User, DollarSign, Tag, RefreshCw, Zap, ShieldAlert } from 'lucide-react';
+import { Send, Shield, Radio, User, DollarSign, Tag, RefreshCw, ShieldAlert, ArrowRight } from 'lucide-react';
 
 export default function PaymentSimulator({
   onSubmitPayment,
@@ -51,39 +51,39 @@ export default function PaymentSimulator({
   };
 
   return (
-    <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+    <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-7 shadow-xs space-y-6">
+      {/* Card Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <Send className="w-5 h-5 text-emerald-400" />
-            <span>Fictional Payment Simulator</span>
+          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <Send className="w-5 h-5 text-blue-600" />
+            <span>Simulated Payment Input</span>
           </h2>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Fill in simulated payment details. No real credentials or bank networks are used.
+          <p className="text-xs text-slate-500 mt-0.5">
+            Enter test transaction details to follow the communication lifecycle.
           </p>
         </div>
 
-        {/* MITM Mode Toggle Pill */}
-        <div className="flex items-center gap-3 bg-slate-950 p-1.5 rounded-xl border border-slate-800 self-start sm:self-auto">
-          <span className="text-xs font-semibold text-slate-400 pl-2">MITM Simulation:</span>
+        {/* MITM Attack Mode Toggle */}
+        <div className="flex items-center gap-3 bg-slate-50 p-1.5 rounded-xl border border-slate-200 self-start sm:self-auto">
+          <span className="text-xs font-semibold text-slate-600 pl-2">MITM Simulation:</span>
           <button
             type="button"
             onClick={() => setIsMitmEnabled(!isMitmEnabled)}
-            className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
               isMitmEnabled
-                ? 'bg-rose-500 text-white shadow-md shadow-rose-500/25'
-                : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                ? 'bg-rose-600 text-white shadow-xs'
+                : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200'
             }`}
           >
             {isMitmEnabled ? (
               <>
-                <Radio className="w-3.5 h-3.5 animate-pulse text-white" />
+                <Radio className="w-3.5 h-3.5" />
                 <span>ENABLED (ATTACK)</span>
               </>
             ) : (
               <>
-                <Shield className="w-3.5 h-3.5 text-emerald-400" />
+                <Shield className="w-3.5 h-3.5 text-emerald-600" />
                 <span>OFF (SECURE)</span>
               </>
             )}
@@ -91,16 +91,16 @@ export default function PaymentSimulator({
         </div>
       </div>
 
-      {/* MITM Educational Warning Banner if Active */}
+      {/* MITM Warning Notice if Enabled */}
       {isMitmEnabled && (
-        <div className="bg-rose-950/40 border border-rose-500/30 rounded-xl p-4 flex items-start gap-3 animate-subtle-pulse">
-          <ShieldAlert className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+        <div className="bg-rose-50 border border-rose-200 rounded-xl p-4 flex items-start gap-3">
+          <ShieldAlert className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
           <div className="space-y-1">
-            <h4 className="text-xs font-bold text-rose-300 uppercase tracking-wider">
-              Educational MITM Interceptor Active
+            <h4 className="text-xs font-bold text-rose-900 uppercase tracking-wider">
+              Simulated Attacker Interceptor Active
             </h4>
-            <p className="text-xs text-rose-200/90 leading-relaxed">
-              In this mode, a simulated intermediary will intercept your payment in transit and alter the payload before it reaches the simulated server. Watch how cryptographic verification flags the mismatch.
+            <p className="text-xs text-rose-700 leading-relaxed">
+              In this mode, an intermediary node will intercept the payment packet in transit and alter the payload. Watch how cryptographic verification detects the mismatch and blocks the transaction.
             </p>
           </div>
         </div>
@@ -108,39 +108,39 @@ export default function PaymentSimulator({
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Quick Pick Presets */}
+        {/* Quick Contact Presets */}
         <div>
-          <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
             Quick Contact Presets:
           </label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             {presetContacts.map((preset) => (
               <button
                 key={preset.name}
                 type="button"
                 onClick={() => handleApplyPreset(preset)}
-                className={`text-left p-2.5 rounded-lg border text-xs transition-all cursor-pointer ${
+                className={`text-left p-3 rounded-xl border text-xs transition-all cursor-pointer ${
                   receiverName === preset.name
-                    ? 'border-emerald-500/60 bg-emerald-500/10 text-emerald-300 font-semibold'
-                    : 'border-slate-800 bg-slate-950/60 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                    ? 'border-blue-600 bg-blue-50/70 text-blue-900 font-semibold shadow-xs'
+                    : 'border-slate-200 bg-slate-50/60 text-slate-600 hover:border-slate-300 hover:bg-white'
                 }`}
               >
-                <div className="font-bold truncate">{preset.name}</div>
-                <div className="text-[11px] opacity-75">₹{preset.amount} • {preset.purpose}</div>
+                <div className="font-bold truncate text-slate-900">{preset.name}</div>
+                <div className="text-[11px] text-slate-500 mt-0.5">₹{preset.amount} • {preset.purpose}</div>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Input Grid */}
+        {/* Input Fields Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Receiver */}
+          {/* Receiver Field */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-              Beneficiary / Receiver Name
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+              Beneficiary Name
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
                 <User className="w-4 h-4" />
               </div>
               <input
@@ -149,18 +149,18 @@ export default function PaymentSimulator({
                 onChange={(e) => setReceiverName(e.target.value)}
                 required
                 placeholder="e.g. Rahul"
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
+                className="w-full bg-white border border-slate-300 rounded-xl pl-9 pr-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/15 transition-all"
               />
             </div>
           </div>
 
-          {/* Amount */}
+          {/* Amount Field */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
               Amount (₹ INR)
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 font-bold text-sm">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 font-bold text-sm">
                 ₹
               </div>
               <input
@@ -171,91 +171,91 @@ export default function PaymentSimulator({
                 onChange={(e) => setAmount(e.target.value)}
                 required
                 placeholder="e.g. 500"
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-8 pr-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
+                className="w-full bg-white border border-slate-300 rounded-xl pl-8 pr-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/15 transition-all"
               />
             </div>
           </div>
 
-          {/* Purpose */}
+          {/* Purpose Field */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
               Payment Purpose (Optional)
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
                 <Tag className="w-4 h-4" />
               </div>
               <input
                 type="text"
                 value={purpose}
                 onChange={(e) => setPurpose(e.target.value)}
-                placeholder="e.g. Food, Groceries"
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
+                placeholder="e.g. Food, Dining"
+                className="w-full bg-white border border-slate-300 rounded-xl pl-9 pr-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/15 transition-all"
               />
             </div>
           </div>
         </div>
 
-        {/* MITM Tamper Configuration Sandbox (if enabled) */}
+        {/* MITM Tamper Selection Sandbox (when enabled) */}
         {isMitmEnabled && (
-          <div className="bg-slate-950/90 border border-rose-500/40 rounded-xl p-4 space-y-3">
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
-                <Radio className="w-4 h-4 text-rose-500" />
+              <span className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                <Radio className="w-4 h-4 text-rose-600" />
                 <span>Simulated Attacker Interceptor Sandbox</span>
               </span>
-              <span className="text-[11px] text-slate-400">Configure what the attacker alters</span>
+              <span className="text-[11px] text-slate-500">Configure what the attacker alters</span>
             </div>
 
             {/* Tamper Type Options */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
               <button
                 type="button"
                 onClick={() => setTamperConfig({ ...tamperConfig, tamper_type: 'RECEIVER_MODIFIED' })}
-                className={`p-2.5 rounded-lg border text-left text-xs transition-all cursor-pointer ${
+                className={`p-3 rounded-xl border text-left text-xs transition-all cursor-pointer ${
                   tamperConfig.tamper_type === 'RECEIVER_MODIFIED'
-                    ? 'border-rose-500 bg-rose-500/15 text-rose-200 font-bold'
-                    : 'border-slate-800 bg-slate-900 text-slate-400 hover:border-slate-700'
+                    ? 'border-rose-500 bg-rose-50 text-rose-900 font-bold'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
                 }`}
               >
-                <div className="font-semibold">1. Divert Beneficiary</div>
-                <div className="text-[11px] opacity-75">Changes receiver to attacker</div>
+                <div className="font-semibold text-slate-900">1. Divert Beneficiary</div>
+                <div className="text-[11px] text-slate-500 mt-0.5">Replaces receiver with attacker</div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setTamperConfig({ ...tamperConfig, tamper_type: 'AMOUNT_MODIFIED' })}
-                className={`p-2.5 rounded-lg border text-left text-xs transition-all cursor-pointer ${
+                className={`p-3 rounded-xl border text-left text-xs transition-all cursor-pointer ${
                   tamperConfig.tamper_type === 'AMOUNT_MODIFIED'
-                    ? 'border-rose-500 bg-rose-500/15 text-rose-200 font-bold'
-                    : 'border-slate-800 bg-slate-900 text-slate-400 hover:border-slate-700'
+                    ? 'border-rose-500 bg-rose-50 text-rose-900 font-bold'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
                 }`}
               >
-                <div className="font-semibold">2. Inflate Amount</div>
-                <div className="text-[11px] opacity-75">Multiplies transfer amount</div>
+                <div className="font-semibold text-slate-900">2. Inflate Amount</div>
+                <div className="text-[11px] text-slate-500 mt-0.5">Multiplies transfer amount (10x)</div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setTamperConfig({ ...tamperConfig, tamper_type: 'FULL_PAYLOAD_TAMPER' })}
-                className={`p-2.5 rounded-lg border text-left text-xs transition-all cursor-pointer ${
+                className={`p-3 rounded-xl border text-left text-xs transition-all cursor-pointer ${
                   tamperConfig.tamper_type === 'FULL_PAYLOAD_TAMPER'
-                    ? 'border-rose-500 bg-rose-500/15 text-rose-200 font-bold'
-                    : 'border-slate-800 bg-slate-900 text-slate-400 hover:border-slate-700'
+                    ? 'border-rose-500 bg-rose-50 text-rose-900 font-bold'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
                 }`}
               >
-                <div className="font-semibold">3. Full Tamper</div>
-                <div className="text-[11px] opacity-75">Changes both payee and amount</div>
+                <div className="font-semibold text-slate-900">3. Full Tamper</div>
+                <div className="text-[11px] text-slate-500 mt-0.5">Changes both payee and amount</div>
               </button>
             </div>
 
             {/* Live Tamper Payload Preview */}
-            <div className="bg-slate-900 rounded-lg p-3 text-xs font-mono text-slate-300 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="bg-white rounded-xl p-3 text-xs font-mono border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <span className="text-slate-500">Original Request:</span>{' '}
-                <span className="text-emerald-400 font-bold">₹{amount} → {receiverName}</span>
+                <span className="text-emerald-700 font-bold">₹{amount} → {receiverName}</span>
               </div>
-              <div className="text-rose-400">
+              <div className="text-rose-700">
                 <span className="text-slate-500">Will be modified to:</span>{' '}
                 <span className="font-bold underline">
                   {tamperConfig.tamper_type === 'RECEIVER_MODIFIED' && `₹${amount} → ${tamperConfig.modified_receiver_name || 'Attacker (Mallory)'}`}
@@ -267,27 +267,27 @@ export default function PaymentSimulator({
           </div>
         )}
 
-        {/* Submit Continue Button */}
+        {/* Submit Button */}
         <div className="pt-2">
           <button
             type="submit"
             disabled={isProcessing}
-            className={`w-full py-3.5 px-6 rounded-xl font-bold text-sm text-white shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer ${
+            className={`w-full py-3.5 px-6 rounded-xl font-bold text-sm text-white shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer ${
               isMitmEnabled
-                ? 'bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 shadow-rose-600/20 active:scale-98'
-                : 'bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 shadow-emerald-600/20 active:scale-98'
+                ? 'bg-rose-600 hover:bg-rose-700 active:scale-98'
+                : 'bg-blue-600 hover:bg-blue-700 active:scale-98'
             } ${isProcessing ? 'opacity-70 cursor-not-allowed' : ''}`}
           >
             {isProcessing ? (
               <>
                 <RefreshCw className="w-4 h-4 animate-spin" />
-                <span>Simulating Payment Transmission...</span>
+                <span>Simulating Communication Flow...</span>
               </>
             ) : (
               <>
-                <Zap className="w-4 h-4 fill-white" />
+                <Send className="w-4 h-4" />
                 <span>
-                  {isMitmEnabled ? 'Continue (Test MITM Detection)' : 'Continue (Send Secure Payment)'}
+                  {isMitmEnabled ? 'Continue (Test MITM Detection)' : 'Continue (Run Security Analysis)'}
                 </span>
               </>
             )}
